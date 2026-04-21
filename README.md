@@ -22,9 +22,17 @@ A partir de esta situación, el proyecto busca analizar el proceso actual y plan
 
 A continuación se presentan los principales elementos que se han desarrollado hasta el momento como parte del análisis del proyecto. Esta sección reúne los resultados construidos durante el trabajo, mostrando no solo qué se hizo, sino también qué permitió identificar cada entregable dentro del entendimiento del proceso actual.
 
+### Contenido
+
+- [1. Modelado BPMN](#1-modelado-bpmn)
+- [2. Modelado ERD](#2-modelado-erd)
+- [3. Mapa de Infraestructura y Diagnóstico Técnico](#3-mapa-de-infraestructura-y-diagnóstico-técnico)
+- [4. Evaluación de Seguridad con STRIDE](#4-evaluación-de-seguridad-con-stride)
+- [5. Cumplimiento Normativo](#5-cumplimiento-normativo)
+
 ---
 
-## 1. Modelado BPMN del proceso actual (AS-IS)
+## 1. Modelado BPMN
 
 Se realizó el modelado del proceso actual utilizando notación **BPMN**, con el objetivo de representar de manera ordenada y visual cómo funciona hoy la recolección y consolidación de información académica para la **Encuesta de Autoevaluación Institucional y por Programas**.
 
@@ -58,4 +66,15 @@ El modelo también permite evidenciar que gran parte del trabajo depende de revi
 En conjunto, este análisis fue importante porque permitió aterrizar de manera visual el funcionamiento real del proceso, identificar sus actores, sus elementos de información y los principales cuellos de botella. Desde la perspectiva de **Arquitectura Empresarial**, el BPMN sirve como base para entender dónde están las mayores ineficiencias del flujo actual y sobre qué puntos conviene enfocar las propuestas de mejora en las siguientes etapas del proyecto.
 
 ---
+## 2. Modelado ERD
 
+---
+## 3. Mapa de Infraestructura y Diagnóstico Técnico
+
+---
+## 4. Evaluación de Seguridad con STRIDE
+
+---
+## 5. Cumplimiento Normativo
+
+---
