@@ -69,8 +69,7 @@ En conjunto, este análisis fue importante porque permitió aterrizar de manera 
 ## 2. Modelado ERD
 
 ---
-## 3. Mapa de Infraestructura y Diagnóstico Técnico
-## Diagrama de Contexto AS-IS
+## 3. Mapa de Infraestructura y Diagnóstico Técnico - Diagrama de Contexto AS-IS
 
 El diagrama representa el estado actual (*AS-IS*) del **Sistema de Gestión de Encuestas de Autoevaluación Institucional** de la Universidad de La Sabana. En él se identifican los actores externos que interactúan con el sistema central, así como los flujos de información entre ellos.
 
@@ -89,9 +88,10 @@ Los actores principales son:
 <p align="center">
   <img src="./diagramas/diagrama_contexto_v2%20%282%29.png" alt="Diagrama de Contexto AS-IS - Encuesta de Autoevaluación Institucional · Universidad de La Sabana" width="100%"/>
 </p>
+
 ---
+
 ## 4. Evaluación de Seguridad con STRIDE
-## Tabla de Amenazas STRIDE
 
 El análisis identificó **12 amenazas** distribuidas en las seis categorías del marco STRIDE, aplicadas sobre los componentes tecnológicos del sistema de encuestas institucionales. De estas, **6 fueron clasificadas como riesgo Alto**, concentradas principalmente en los componentes de SharePoint, Excel y Microsoft Forms, donde las brechas de control de acceso, falta de cifrado y ausencia de trazabilidad representan los mayores riesgos para la confidencialidad e integridad de los datos. Las amenazas de riesgo Medio corresponden en su mayoría a escenarios de repudio y suplantación sobre canales de comunicación, mientras que solo una amenaza fue clasificada como riesgo Bajo, asociada a una mala configuración interna de Power Automate.
 
