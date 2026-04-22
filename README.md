@@ -74,9 +74,7 @@ A continuación se presenta el diagrama ERD construido para representar la estru
 
 ## 1.2 Análisis del ERD
 
-Como si estuviéramos abriendo el motor interno del proceso, el modelo entidad–relación permite ver no solo quién participa, sino cómo fluye realmente la información entre piezas que antes parecían desconectadas.
-
-A partir del análisis del diagrama, se identifican los principales elementos:
+Como parte del análisis del modelo entidad–relación, se identificaron los principales elementos que estructuran la información del proceso, así como sus relaciones y dependencias:
 
 | Nombre del elemento    | Tipo              | Descripción                                                             | Responsable            |
 | ---------------------- | ----------------- | ----------------------------------------------------------------------- | ---------------------- |
@@ -92,25 +90,26 @@ A partir del análisis del diagrama, se identifican los principales elementos:
 | Proveedor              | Actor externo     | Tercero que procesa información y genera informes                       | Proveedor externo      |
 | DocentePrograma        | Entidad débil     | Relación que permite modelar docentes en múltiples programas            | Sistema                |
 
-Al observar el modelo, se hace evidente que la Aplicación de Encuesta actúa como el corazón del sistema, una especie de nodo central donde convergen docentes, asignaturas, cronograma, PAT y encuestas. Es el punto donde el modelo deja de ser teoría y se convierte en acción.
+A partir de esta identificación, el diagrama permite comprender de manera estructurada cómo se organizan los datos dentro del proceso y cómo interactúan entre sí las distintas entidades.
 
-El diagrama también permite entender relaciones clave que antes estaban implícitas o mal gestionadas:
-- Un docente no pertenece a un solo programa, sino que puede moverse entre varios, lo que justifica la creación de la entidad intermedia DocentePrograma.
-- Un programa ofrece múltiples asignaturas, pero cada asignatura está claramente ligada a un semestre, lo que introduce orden temporal al modelo.
-- El cronograma no es un bloque monolítico, sino que se descompone en múltiples instancias a través de DetalleCronograma, permitiendo granularidad en la planeación.
-- Cada bloque del cronograma se traduce en una aplicación real de encuesta, conectando la planeación con la ejecución.
-- El PAT aparece como un actor operativo clave, capaz de ejecutar múltiples aplicaciones según disponibilidad, lo que introduce una dimensión de capacidad operativa.
-- El proveedor recibe información ya estructurada, cerrando el ciclo con la generación de resultados e informes.
+En primer lugar, se evidencia que un docente puede estar asociado a múltiples programas, lo cual se modela mediante la entidad intermedia DocentePrograma. Esta decisión permite representar adecuadamente escenarios en los que un mismo docente participa en diferentes contextos académicos.
 
-Más allá de las relaciones, el modelo también deja al descubierto varios problemas del estado actual:
-- La complejidad de manejar docentes en múltiples programas sin una estructura formal.
-- La fragmentación del cronograma en archivos no estandarizados.
-- La ausencia de una entidad clara que articule la ejecución (antes dispersa en correos y Excel).
-- La dependencia de procesos manuales para consolidar información.
+Asimismo, se establece que un programa ofrece múltiples asignaturas, y que cada asignatura se encuentra vinculada a un semestre, lo que permite incorporar una dimensión temporal en el modelo. Esta relación facilita la organización de la información académica y su posterior análisis.
 
-Este ERD no es solo un dibujo técnico; es como un mapa topográfico del sistema, donde se ven montañas (complejidades), ríos (flujos de información) y cuellos de botella escondidos entre curvas.
+Por otra parte, el cronograma se descompone en unidades más específicas a través de la entidad Detalle Cronograma, lo que permite representar con mayor precisión la planificación de las sesiones de aplicación. Cada uno de estos detalles se asocia posteriormente con una aplicación de encuesta, estableciendo una relación directa entre la planeación y la ejecución del proceso.
 
-En conjunto, este análisis fue clave porque permitió estructurar de manera formal la información del proceso, identificar cómo se relacionan sus componentes y evidenciar inconsistencias del modelo actual. Desde la perspectiva de Arquitectura Empresarial, el ERD aporta una base sólida para diseñar soluciones más integradas, mejorar la trazabilidad de los datos y reducir la dependencia de procesos manuales, sirviendo como punto de partida para la transformación del sistema hacia un enfoque más estructurado, escalable y eficiente.
+La entidad Aplicación de Encuesta se constituye como un elemento central dentro del modelo, ya que integra la información relacionada con asignaturas, docentes, cronograma, estudiantes aplicadores (PAT) y encuestas. Esto permite consolidar en un solo punto la información necesaria para la ejecución operativa.
+
+Adicionalmente, se incluye la entidad PAT, que representa la capacidad operativa del proceso, al ser responsable de ejecutar múltiples aplicaciones según su disponibilidad. Finalmente, el proveedor se modela como un actor externo que recibe la información consolidada y genera los informes correspondientes, cerrando el flujo de información.
+
+El modelo también permite evidenciar problemáticas del estado actual del proceso, tales como:
+
+- La dificultad para gestionar docentes asociados a múltiples programas sin una estructura formal.
+- La fragmentación de la información del cronograma en múltiples formatos.
+- La ausencia de una estructura centralizada para registrar la ejecución de las encuestas.
+- La alta dependencia de procesos manuales para la consolidación de la información.
+
+En conjunto, este análisis fue importante porque permitió estructurar de manera formal la información del proceso, identificar las relaciones entre sus componentes y evidenciar inconsistencias en su gestión actual. Desde la perspectiva de Arquitectura Empresarial, el ERD aporta una base sólida para el diseño de soluciones más integradas, mejora la trazabilidad de los datos y reduce la dependencia de procesos manuales, facilitando la evolución hacia un modelo más eficiente y escalable.
 
 ---
 ## 3. Mapa de Infraestructura y Diagnóstico Técnico - Diagrama de Contexto AS-IS
