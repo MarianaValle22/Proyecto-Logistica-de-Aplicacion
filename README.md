@@ -73,6 +73,24 @@ En conjunto, este análisis fue importante porque permitió aterrizar de manera 
 
 ---
 ## 4. Evaluación de Seguridad con STRIDE
+## Tabla de Amenazas STRIDE
+
+El análisis identificó **12 amenazas** distribuidas en las seis categorías del marco STRIDE, aplicadas sobre los componentes tecnológicos del sistema de encuestas institucionales. De estas, **6 fueron clasificadas como riesgo Alto**, concentradas principalmente en los componentes de SharePoint, Excel y Microsoft Forms, donde las brechas de control de acceso, falta de cifrado y ausencia de trazabilidad representan los mayores riesgos para la confidencialidad e integridad de los datos. Las amenazas de riesgo Medio corresponden en su mayoría a escenarios de repudio y suplantación sobre canales de comunicación, mientras que solo una amenaza fue clasificada como riesgo Bajo, asociada a una mala configuración interna de Power Automate.
+
+| # | Categoría STRIDE | Componente | Amenaza | Impacto | Control propuesto | Riesgo |
+|---|-----------------|------------|---------|---------|------------------|--------|
+| 1 | Spoofing | Forms / Correo | Suplantación de un director de programa para enviar información falsa | Datos incorrectos en listados, afectando acreditación | Autenticación con cuenta institucional obligatoria + MFA | 🔴 Alto |
+| 2 | Spoofing | Power Automate | Flujo recibe datos de una fuente no verificada o suplantada | Automatización de datos incorrectos sin validación | Restringir conexiones a cuentas institucionales verificadas | 🟡 Medio |
+| 3 | Tampering | SharePoint / Excel | Modificación no autorizada de listados de materias o profesores | Resultados de encuestas incorrectos o inválidos | Control de versiones en SharePoint; permisos por rol; auditoría de cambios | 🔴 Alto |
+| 4 | Tampering | Archivos Excel | Edición directa sin trazabilidad ni control de acceso | Pérdida de integridad en logística de aplicación | Migrar gestión a listas de SharePoint con permisos y versiones | 🔴 Alto |
+| 5 | Repudiation | Correo / Forms | Director niega haber enviado cierta información base | Incapacidad de demostrar responsabilidades ante errores | Logs de auditoría en SharePoint y Power Automate; registro de usuario y marca de tiempo | 🟡 Medio |
+| 6 | Repudiation | Proveedor externo | Proveedor niega haber recibido o entregado ciertos datos | Pérdida de trazabilidad en cadena de custodia de resultados | Confirmación formal de recepción; canales rastreables | 🟡 Medio |
+| 7 | Information Disclosure | SharePoint / Forms | Acceso no autorizado a datos de profesores, estudiantes o resultados | Violación de confidencialidad; daño a credibilidad del proceso | Segmentación de permisos por rol; cifrado de archivos exportados | 🔴 Alto |
+| 8 | Information Disclosure | Excel / Correo | Archivos con datos sensibles compartidos sin cifrado | Exposición de datos personales; incumplimiento de Ley 1581 | Usar SharePoint con permisos; no enviar listados completos por correo | 🔴 Alto |
+| 9 | Denial of Service | Microsoft Forms | Saturación con respuestas masivas falsas durante la aplicación | Interrupción del proceso; datos contaminados | Limitar respuestas por usuario autenticado; restringir a cuentas institucionales | 🟡 Medio |
+| 10 | Denial of Service | Power Automate | Flujo mal configurado genera ejecuciones en bucle | Bloqueo operativo del flujo de trabajo | Monitorear ejecuciones; alertas por fallo o comportamiento anómalo | 🟢 Bajo |
+| 11 | Elevation of Privilege | SharePoint / M365 | Estudiante PATH obtiene acceso a resultados o listados completos | Acceso no autorizado a datos sensibles de acreditación | Mínimo privilegio; auditorías periódicas de acceso por rol | 🔴 Alto |
+| 12 | Elevation of Privilege | Power Automate | Flujo ejecuta acciones con credenciales de otro usuario | Acciones no autorizadas sobre datos o flujos del sistema | Cuentas de servicio específicas con permisos mínimos | 🟡 Medio |
 
 ---
 ## 5. Cumplimiento Normativo
