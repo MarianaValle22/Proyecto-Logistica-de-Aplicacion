@@ -87,7 +87,7 @@ Los actores principales son:
 > ⚠️ Los flujos en naranja/rojo indican **puntos de dolor**: datos no estandarizados, reprocesos y dependencia manual.
 
 <p align="center">
-  <img src="./diagramas/diagrama_contexto_v2(2).png" alt="Diagrama de Contexto AS-IS - Proceso de Aplicación de Encuesta de Autoevaluación Institucional y por Programas de la Universidad de La Sabana" width="100%"/>
+  <img src="./diagramas/diagrama_contexto_v2%20%282%29.png" alt="Diagrama de Contexto AS-IS - Encuesta de Autoevaluación Institucional · Universidad de La Sabana" width="100%"/>
 </p>
 ---
 ## 4. Evaluación de Seguridad con STRIDE
