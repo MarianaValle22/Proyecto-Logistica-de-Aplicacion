@@ -66,7 +66,51 @@ El modelo también permite evidenciar que gran parte del trabajo depende de revi
 En conjunto, este análisis fue importante porque permitió aterrizar de manera visual el funcionamiento real del proceso, identificar sus actores, sus elementos de información y los principales cuellos de botella. Desde la perspectiva de **Arquitectura Empresarial**, el BPMN sirve como base para entender dónde están las mayores ineficiencias del flujo actual y sobre qué puntos conviene enfocar las propuestas de mejora en las siguientes etapas del proyecto.
 
 ---
-## 2. Modelado ERD
+## 2.1 Diagrama ERD (Modelo Entidad–Relación)
+
+A continuación se presenta el diagrama ERD construido para representar la estructura de datos del proceso de autoevaluación institucional y la aplicación de encuestas:
+
+<img width="1358" height="1041" alt="image" src="https://github.com/user-attachments/assets/2f4c0883-18bc-4554-968c-79de163eeb28" />
+
+## 1.2 Análisis del ERD
+
+Como si estuviéramos abriendo el motor interno del proceso, el modelo entidad–relación permite ver no solo quién participa, sino cómo fluye realmente la información entre piezas que antes parecían desconectadas.
+
+A partir del análisis del diagrama, se identifican los principales elementos:
+
+| Nombre del elemento    | Tipo              | Descripción                                                             | Responsable            |
+| ---------------------- | ----------------- | ----------------------------------------------------------------------- | ---------------------- |
+| Programa               | Entidad           | Unidad académica encargada de gestionar su proceso de autoevaluación    | Facultad               |
+| Docente                | Entidad           | Profesor que dicta asignaturas y puede pertenecer a múltiples programas | Programa               |
+| Asignatura             | Entidad           | Espacio académico asociado a un programa y semestre                     | Programa               |
+| Semestre               | Entidad           | Periodo académico en el que se ofertan asignaturas                      | Institución            |
+| Cronograma             | Entidad           | Planeación formal de fechas y bloques de aplicación                     | Decanos                |
+| Detalle Cronograma     | Entidad débil     | Desglose específico de sesiones de aplicación                           | Coordinación logística |
+| Aplicación de Encuesta | Entidad / Proceso | Ejecución concreta de la encuesta en una clase                          | Coordinación logística |
+| Encuesta               | Entidad           | Instrumento de recolección de información                               | Área de calidad        |
+| PAT                    | Actor / Entidad   | Estudiante encargado de aplicar la encuesta                             | Coordinación logística |
+| Proveedor              | Actor externo     | Tercero que procesa información y genera informes                       | Proveedor externo      |
+| DocentePrograma        | Entidad débil     | Relación que permite modelar docentes en múltiples programas            | Sistema                |
+
+Al observar el modelo, se hace evidente que la Aplicación de Encuesta actúa como el corazón del sistema, una especie de nodo central donde convergen docentes, asignaturas, cronograma, PAT y encuestas. Es el punto donde el modelo deja de ser teoría y se convierte en acción.
+
+El diagrama también permite entender relaciones clave que antes estaban implícitas o mal gestionadas:
+- Un docente no pertenece a un solo programa, sino que puede moverse entre varios, lo que justifica la creación de la entidad intermedia DocentePrograma.
+- Un programa ofrece múltiples asignaturas, pero cada asignatura está claramente ligada a un semestre, lo que introduce orden temporal al modelo.
+- El cronograma no es un bloque monolítico, sino que se descompone en múltiples instancias a través de DetalleCronograma, permitiendo granularidad en la planeación.
+- Cada bloque del cronograma se traduce en una aplicación real de encuesta, conectando la planeación con la ejecución.
+- El PAT aparece como un actor operativo clave, capaz de ejecutar múltiples aplicaciones según disponibilidad, lo que introduce una dimensión de capacidad operativa.
+- El proveedor recibe información ya estructurada, cerrando el ciclo con la generación de resultados e informes.
+
+Más allá de las relaciones, el modelo también deja al descubierto varios problemas del estado actual:
+- La complejidad de manejar docentes en múltiples programas sin una estructura formal.
+- La fragmentación del cronograma en archivos no estandarizados.
+- La ausencia de una entidad clara que articule la ejecución (antes dispersa en correos y Excel).
+- La dependencia de procesos manuales para consolidar información.
+
+Este ERD no es solo un dibujo técnico; es como un mapa topográfico del sistema, donde se ven montañas (complejidades), ríos (flujos de información) y cuellos de botella escondidos entre curvas.
+
+En conjunto, este análisis fue clave porque permitió estructurar de manera formal la información del proceso, identificar cómo se relacionan sus componentes y evidenciar inconsistencias del modelo actual. Desde la perspectiva de Arquitectura Empresarial, el ERD aporta una base sólida para diseñar soluciones más integradas, mejorar la trazabilidad de los datos y reducir la dependencia de procesos manuales, sirviendo como punto de partida para la transformación del sistema hacia un enfoque más estructurado, escalable y eficiente.
 
 ---
 ## 3. Mapa de Infraestructura y Diagnóstico Técnico - Diagrama de Contexto AS-IS
