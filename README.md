@@ -86,7 +86,7 @@ Los actores principales son:
 
 > ⚠️ Los flujos en naranja/rojo indican **puntos de dolor**: datos no estandarizados, reprocesos y dependencia manual.
 
-![Diagrama de Contexto AS-IS](diagrama_contexto_asis)
+![Diagrama de Contexto AS-IS](diagrama_contexto_asis.png)
 ---
 ## 4. Evaluación de Seguridad con STRIDE
 ## Tabla de Amenazas STRIDE
