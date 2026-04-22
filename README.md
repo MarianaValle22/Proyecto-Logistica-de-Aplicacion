@@ -70,7 +70,23 @@ En conjunto, este análisis fue importante porque permitió aterrizar de manera 
 
 ---
 ## 3. Mapa de Infraestructura y Diagnóstico Técnico
+## Diagrama de Contexto AS-IS
 
+El diagrama representa el estado actual (*AS-IS*) del **Sistema de Gestión de Encuestas de Autoevaluación Institucional** de la Universidad de La Sabana. En él se identifican los actores externos que interactúan con el sistema central, así como los flujos de información entre ellos.
+
+Los actores principales son:
+
+- **Director de Programa**: envía listados de materias, horarios y salones en formato Excel no estandarizado.
+- **Área de Autoevaluación (Johanna)**: consolida la información base y define el cronograma de aplicación.
+- **Estudiantes PAT**: reciben asignación de salones y fechas, y aplican la encuesta presencialmente en aula (QR).
+- **Profesores**: reciben recordatorio manual por correo y se les asigna un link de encuesta por programa.
+- **Proveedor Externo**: recibe la información consolidada de profesores y programas, y retorna los links QR, encuestas e informes finales.
+- **Estudiantes (pregrado / posgrado)**: son los encuestados finales en el proceso presencial.
+- **CNA (Consejo Nacional de Acreditación)**: recibe los resultados de autoevaluación como informes finales.
+
+> ⚠️ Los flujos en naranja/rojo indican **puntos de dolor**: datos no estandarizados, reprocesos y dependencia manual.
+
+![Diagrama de Contexto AS-IS](diagrama_contexto_asis.png)
 ---
 ## 4. Evaluación de Seguridad con STRIDE
 ## Tabla de Amenazas STRIDE
