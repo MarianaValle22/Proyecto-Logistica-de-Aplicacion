@@ -29,6 +29,8 @@ A continuación se presentan los principales elementos que se han desarrollado h
 - [3. Mapa de Infraestructura y Diagnóstico Técnico](#3-mapa-de-infraestructura-y-diagnóstico-técnico)
 - [4. Evaluación de Seguridad con STRIDE](#4-evaluación-de-seguridad-con-stride)
 - [5. Cumplimiento Normativo](#5-cumplimiento-normativo)
+- [6. Gobernanza](#6-gobernanza)
+- [7. Análisis de Riesgos](#7-análisis-de-riesgos)
 
 ---
 
@@ -66,13 +68,13 @@ El modelo también permite evidenciar que gran parte del trabajo depende de revi
 En conjunto, este análisis fue importante porque permitió aterrizar de manera visual el funcionamiento real del proceso, identificar sus actores, sus elementos de información y los principales cuellos de botella. Desde la perspectiva de **Arquitectura Empresarial**, el BPMN sirve como base para entender dónde están las mayores ineficiencias del flujo actual y sobre qué puntos conviene enfocar las propuestas de mejora en las siguientes etapas del proyecto.
 
 ---
-## 2.1 Diagrama ERD (Modelo Entidad–Relación)
+## 2 Modelado ERD
 
 A continuación se presenta el diagrama ERD construido para representar la estructura de datos del proceso de autoevaluación institucional y la aplicación de encuestas:
 
 <img width="1358" height="1041" alt="image" src="https://github.com/user-attachments/assets/2f4c0883-18bc-4554-968c-79de163eeb28" />
 
-## 1.2 Análisis del ERD
+### 2.1 Análisis del ERD
 
 Como parte del análisis del modelo entidad–relación, se identificaron los principales elementos que estructuran la información del proceso, así como sus relaciones y dependencias:
 
@@ -112,7 +114,7 @@ El modelo también permite evidenciar problemáticas del estado actual del proce
 En conjunto, este análisis fue importante porque permitió estructurar de manera formal la información del proceso, identificar las relaciones entre sus componentes y evidenciar inconsistencias en su gestión actual. Desde la perspectiva de Arquitectura Empresarial, el ERD aporta una base sólida para el diseño de soluciones más integradas, mejora la trazabilidad de los datos y reduce la dependencia de procesos manuales, facilitando la evolución hacia un modelo más eficiente y escalable.
 
 ---
-## 3. Mapa de Infraestructura y Diagnóstico Técnico - Diagrama de Contexto AS-IS
+## 3. Mapa de Infraestructura y Diagnóstico Técnico
 
 El diagrama representa el estado actual (*AS-IS*) del **Sistema de Gestión de Encuestas de Autoevaluación Institucional** de la Universidad de La Sabana. En él se identifican los actores externos que interactúan con el sistema central, así como los flujos de información entre ellos.
 
@@ -188,3 +190,53 @@ En general, el análisis muestra que los riesgos no vienen solo del hecho de man
 Este entregable fue valioso porque permitió entender de forma más clara dónde están las principales brechas del proceso y qué aspectos deberían fortalecerse. Desde la perspectiva de **Arquitectura Empresarial**, este análisis ayuda a ver que mejorar el proceso no solo implica hacerlo más eficiente, sino también más confiable, más controlado y mejor preparado para responder a las exigencias normativas.
 
 ---
+## 6. Gobernanza
+
+---
+## 7. Análisis de Riesgos
+
+El análisis de riesgos permitió identificar las principales situaciones que pueden afectar la correcta ejecución de la logística de aplicación de la Encuesta de Autoevaluación Institucional por Programas. Este análisis no se enfocó únicamente en posibles fallas tecnológicas, sino también en aspectos relacionados con la recolección de información, la organización de los datos, la validación manual, la trazabilidad y la gestión operativa del proceso.
+
+A partir de la revisión del estado actual, se evidenció que la operación depende en gran medida de archivos Excel, correos electrónicos, validaciones manuales y conocimiento operativo concentrado en pocas personas. Esta situación permitió reconocer riesgos asociados a errores de información, reprocesos, pérdida de trazabilidad, sobrecarga operativa, entre otros.
+
+Desde la perspectiva de Arquitectura Empresarial, el análisis permitió relacionar estos riesgos con diferentes dominios de la arquitectura, como procesos, datos, aplicaciones, seguridad, gobierno y negocio. Esto permitió entender que los problemas actuales no corresponden a situaciones aisladas, sino a debilidades estructurales del proceso AS-IS que deben ser consideradas en la propuesta de arquitectura TO-BE.
+
+### 7.1 Riesgos identificados
+
+Como resultado del análisis del proceso actual, se identificaron los siguientes riesgos principales:
+
+| Riesgo | Causa principal | Impacto | Probabilidad | Nivel de riesgo | Arquitectura afectada |
+|---|---|---|---|---|---|
+| Información académica inconsistente | Los directores de programa envían la información en formatos diferentes y sin una estructura única | Errores en la planeación logística, reprocesos y retrasos en la consolidación de información | Alta | Alto | Datos / Procesos |
+| Alta dependencia de Excel manual | La planeación de horarios, salones y estudiantes PAT se realiza mediante archivos Excel manejados manualmente | Mayor probabilidad de errores, duplicidad de información y dificultad para controlar cambios | Alta | Alto | Procesos / Datos |
+| Pérdida de trazabilidad del proceso | La información se comparte por correos, archivos sueltos y ajustes manuales sin un registro centralizado | Dificultad para identificar quién modificó información, cuándo se hizo el cambio y cuál fue la versión válida | Alta | Alto | Procesos / Gobierno |
+| Sobrecarga operativa de la coordinadora | La asignación de horarios, salones y aplicadores depende principalmente del trabajo manual de una sola persona | Dependencia operativa, riesgo de retrasos y disminución de la capacidad para atender otras funciones del área | Alta | Alto | Negocio / Procesos |
+| Reprogramaciones difíciles de gestionar | Durante la aplicación pueden presentarse cambios de salón, cancelaciones de clase o información errónea | Aumento de reprocesos, reasignaciones manuales y posible afectación en la cobertura de la encuesta | Media | Medio | Procesos / Aplicaciones |
+| Ausencia de una base centralizada de docentes, programas y asignaturas | La información académica se encuentra distribuida en diferentes archivos y no existe una estructura única de datos | Dificultad para identificar docentes asociados a varios programas y optimizar el envío de encuestas | Media | Medio | Datos |
+| Duplicidad o inconsistencia en la información de docentes | Un mismo docente puede participar en varios programas sin que exista una relación clara en el sistema actual | Envío repetido de encuestas similares, mayor carga para el docente y menor eficiencia en el proceso | Media | Medio | Datos / Negocio |
+| Acceso no controlado a información sensible | Los archivos pueden ser compartidos por correo o almacenados sin permisos claramente definidos | Exposición de información académica o personal y posible incumplimiento de controles de confidencialidad | Media | Alto | Seguridad / Datos |
+| Falta de monitoreo del avance de la logística | No existen indicadores centralizados para conocer el estado de la planeación, pendientes, cambios o reprocesos | Dificultad para detectar problemas a tiempo y tomar decisiones oportunas durante la ejecución | Media | Medio | Gobierno / Procesos |
+| Baja capacidad de adaptación ante imprevistos | El proceso actual no cuenta con reglas automáticas ni una estructura flexible para reasignar rápidamente | Mayor esfuerzo operativo ante cambios y menor capacidad de respuesta durante la aplicación | Alta | Alto | Procesos / Aplicaciones |
+| Riesgo de errores en la asignación de estudiantes PAT | La disponibilidad de los estudiantes aplicadores se cruza manualmente con horarios, salones y materias | Asignaciones incorrectas, cruces de horarios o falta de cobertura en algunas sesiones | Alta | Alto | Procesos / Datos |
+
+El análisis permitió evidenciar que la principal debilidad del proceso actual no está únicamente en el uso de Excel, sino en la forma en que se gestiona la información durante la logística de aplicación. La operación depende de actividades manuales, archivos dispersos y conocimiento concentrado en la coordinadora, lo que aumenta la posibilidad de errores, reprocesos y pérdida de trazabilidad.
+
+También se identificó que muchos riesgos se originan desde la recolección de información, cuando los directores de programa envían datos en formatos diferentes o incompletos. Esta situación afecta la planeación de horarios, salones, profesores y estudiantes PAT, y evidencia la necesidad de una arquitectura TO-BE que centralice la información, automatice validaciones, controle accesos y facilite el seguimiento del proceso.
+
+### 7.2 Riesgos frente a la arquitectura TO-BE
+
+Además de los riesgos identificados en el proceso actual, el análisis permitió reconocer algunos riesgos asociados a la implementación o adopción de la arquitectura TO-BE. Estos riesgos no invalidan la propuesta, pero sí deben ser considerados para que la solución futura sea sostenible y realmente reduzca las debilidades del estado actual.
+
+| Riesgo asociado al TO-BE | Descripción | Impacto esperado | Nivel |
+|---|---|---|---|
+| Configuración incorrecta de formularios | Si los formularios de captura no tienen campos obligatorios, listas controladas o validaciones claras, la información podría seguir llegando incompleta | Persistencia de errores de datos desde el origen | Medio |
+| Permisos mal definidos en SharePoint o repositorio central | Si los usuarios tienen más permisos de los necesarios, podrían acceder o modificar información que no les corresponde | Riesgo de exposición o modificación no autorizada de datos | Alto |
+| Automatizaciones incompletas o mal diseñadas | Si los flujos automáticos no contemplan excepciones, errores o cambios de último momento, podrían generar nuevos reprocesos | Interrupciones operativas o necesidad de correcciones manuales | Medio |
+| Dependencia de una mala parametrización inicial | Si la estructura de programas, docentes, asignaturas, horarios y estudiantes PAT no queda bien definida desde el inicio, la solución puede perder efectividad | Datos inconsistentes y dificultad para operar el modelo TO-BE | Alto |
+| Baja adopción por parte de usuarios | Si los directores de programa o responsables del proceso no usan el nuevo flujo, se mantendrán correos y archivos paralelos | Duplicidad de información y bajo impacto de la mejora | Medio |
+| Falta de gobierno sobre cambios futuros | Si no se define quién administra formularios, permisos, flujos y estructura de datos, la solución puede desordenarse con el tiempo | Pérdida de control y sostenibilidad del modelo | Medio |
+
+En conjunto, estos riesgos permiten entender que la mejora del proceso no debe limitarse a reemplazar herramientas, sino a fortalecer la forma en que se captura, controla, valida y utiliza la información. Por esta razón, el siguiente apartado presenta las mitigaciones propuestas, las cuales buscan responder directamente a los riesgos identificados y orientar la arquitectura TO-BE hacia un modelo más centralizado, trazable, seguro y sostenible para la logística de aplicación de la encuesta.
+
+---
+
