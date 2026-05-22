@@ -238,5 +238,83 @@ Además de los riesgos identificados en el proceso actual, el análisis permiti�
 
 En conjunto, estos riesgos permiten entender que la mejora del proceso no debe limitarse a reemplazar herramientas, sino a fortalecer la forma en que se captura, controla, valida y utiliza la información. Por esta razón, el siguiente apartado presenta las mitigaciones propuestas, las cuales buscan responder directamente a los riesgos identificados y orientar la arquitectura TO-BE hacia un modelo más centralizado, trazable, seguro y sostenible para la logística de aplicación de la encuesta.
 
+### 7.3 Mitigaciones propuestas y relación con la arquitectura TO-BE
+
+Teniendo en cuenta los riesgos identificados en el estado actual del proceso, y en los riesgos asociados a la implementación de la arquitectura TO-BE, se definieron diferentes mitigaciones con el objetivo de fortalecer la operación logística de la Encuesta de Autoevaluación Institucional por Programas.
+
+Estas mitigaciones no se limitan únicamente a controles técnicos, sino que también se buscan con ellas transformar la manera en que se captura, valida, centraliza y utiliza la información dentro del proceso. Las acciones propuestas se relacionan directamente con los objetivos de la arquitectura TO-BE:
+
+- Resolver riesgos operativos y de información presentes en el modelo actual.
+- Mejorar la resiliencia del proceso ante cambios, errores o imprevistos.
+- Incrementar la escalabilidad de la operación para soportar más programas, docentes y jornadas de aplicación.
+- Facilitar la evolución futura del proceso mediante estructuras parametrizadas y gobernadas.
+- Mejorar la integración entre actores, datos y herramientas institucionales.
+
+A continuación se propondrán las mitigaciones con su relación directa a la arquitectura TO-BE:
+
+**1. Estandarización de captura de información**
+
+Para reducir los riesgos asociados a información inconsistente, reprocesos y errores de consolidación, la arquitectura TO-BE propone implementar formularios estructurados para los directores de programa, utilizando campos obligatorios, listas desplegables y validaciones automáticas. Esta mitigación permite garantizar que la información académica llegue bajo una estructura única y controlada desde el origen, reduciendo errores manuales y mejorando la calidad de los datos.
+
+Esto resuelve los riesgos relacionados con inconsistencias de información, mejora la escalabilidad al permitir consolidar múltiples programas bajo un mismo modelo y busca mejorar la integración entre programas y coordinación logística.
+
+**2. Centralización de la información académica**
+
+La arquitectura TO-BE plantea consolidar la información de programas, docentes, asignaturas, horarios y estudiantes PAT en un repositorio centralizado, evitando el manejo de múltiples archivos Excel dispersos. Esto permite trabajar sobre una única fuente de información, reducir duplicidades y facilitar el control de versiones y cambios realizados durante la logística.
+
+Esta mitigación reduce riesgos asociados a pérdida de trazabilidad y duplicidad de información y mejora la resiliencia al disminuir dependencia de archivos individuales. Además de los dos beneficios anteriores relacionados a la arquitectura, teniendo en cuenta la problemática del trabajo manual del cliente, esta mitigación permite una mayor capacidad de crecimiento operativo sin aumentar la complejidad manual.
+
+**3. Automatización de validaciones y asignaciones**
+
+La propuesta TO-BE incorpora reglas automáticas para validar información, controlar inconsistencias y apoyar procesos como la asignación de estudiantes PAT, horarios y salones. La automatización disminuye la dependencia operativa de tareas manuales repetitivas y reduce el riesgo de errores humanos durante la ejecución.
+
+La mitigación propuesta busca resolver riesgos de asignaciones incorrectas y reprocesos, mejorar la resiliencia operativa frente a cambios o ajustes de última hora e incluso se considera que en caso de que el proceso escale a futuro, se facilita la evolución futura.
+
+**4. Implementación de trazabilidad y control de cambios**
+
+La arquitectura TO-BE propone que todas las modificaciones realizadas sobre la información queden registradas automáticamente, permitiendo conocer qué usuario realizó cambios, cuándo se realizaron y cuál es la versión vigente de la información. Esto fortalece el gobierno del proceso y reduce riesgos asociados a pérdida de control documental.
+
+Esta mitigación resuelve riesgos relacionados con falta de trazabilidad; mejora la resiliencia mediante control de versiones y seguimiento de cambios. También se busca con esto facilitar auditoría, monitoreo y mejora continua, así ayudando a mejorar la integración entre actores responsables del proceso.
+
+**5. Definición de roles y control de acceso**
+
+Con el fin de proteger la información académica y operativa, la arquitectura TO-BE incorpora controles de acceso basados en roles, limitando permisos según las responsabilidades de cada usuario. Esto evita modificaciones no autorizadas y reduce riesgos asociados a exposición de información sensible.
+
+Con ayuda de esta mitigación se reducen los riesgos de seguridad y acceso no controlado, al permitir una administración más organizada de usuarios y responsabilidades.
+
+**5. Monitoreo e indicadores del proceso**
+
+La propuesta TO-BE contempla mecanismos de seguimiento centralizado para visualizar el estado de la logística, pendientes, validaciones, cambios y cobertura de aplicación. Esto permite detectar problemas oportunamente y mejorar la toma de decisiones durante la ejecución del proceso.
+
+Con esto, es posible reduce riesgos asociados a falta de monitoreo, lo que conlleva también a menos trabajo manual para el cliente; Además, se mejora la integración entre coordinación, programas y operación logística.
+
+**6. Gobierno y sostenibilidad de la solución**
+
+Finalmente, para evitar desorganización futura, la arquitectura TO-BE propone definir responsables para la administración de formularios, estructuras de datos, permisos y automatizaciones. Esto garantiza que la solución pueda mantenerse, ajustarse y evolucionar de forma controlada a lo largo del tiempo.
+
+Con esto, se busca reducir los riesgos asociados a mala parametrización o falta de control, facilitar la evolución y sostenibilidad del modelo y fortalecer el gobierno de arquitectura y datos.
+
+### 7.4 Matriz de riesgos 
+
+| Riesgo                                             | Causa                                                  | Impacto                                   | Probabilidad | Arquitectura afectada   | Mitigación                                                      |
+| -------------------------------------------------- | ------------------------------------------------------ | ----------------------------------------- | ------------ | ----------------------- | --------------------------------------------------------------- |
+| Información académica inconsistente                | Información enviada en formatos diferentes             | Errores y reprocesos                      | Alta         | Datos / Procesos        | Formularios estructurados con validaciones y listas controladas |
+| Alta dependencia de Excel manual                   | Planeación realizada manualmente en archivos dispersos | Errores y duplicidad de información       | Alta         | Procesos / Datos        | Centralización de información y automatización de procesos      |
+| Pérdida de trazabilidad del proceso                | Manejo de correos y archivos sin control central       | Falta de seguimiento y control de cambios | Alta         | Procesos / Gobierno     | Registro automático de cambios y control de versiones           |
+| Sobrecarga operativa de la coordinadora            | Dependencia de actividades manuales                    | Retrasos y dependencia operativa          | Alta         | Negocio / Procesos      | Automatización de validaciones y distribución de tareas         |
+| Reprogramaciones difíciles de gestionar            | Cambios operativos durante la aplicación               | Reprocesos y afectación de cobertura      | Media        | Procesos / Aplicaciones | Reglas flexibles y actualización centralizada de información    |
+| Ausencia de base centralizada                      | Información distribuida en múltiples archivos          | Dificultad para consolidar información    | Media        | Datos                   | Repositorio único centralizado                                  |
+| Duplicidad de información de docentes              | Falta de relación unificada entre programas y docentes | Envíos repetidos y menor eficiencia       | Media        | Datos / Negocio         | Modelo de datos unificado y validaciones automáticas            |
+| Acceso no controlado a información sensible        | Compartición libre de archivos                         | Exposición de información                 | Media        | Seguridad / Datos       | Control de accesos por roles y permisos                         |
+| Falta de monitoreo del avance                      | Ausencia de indicadores centralizados                  | Problemas detectados tardíamente          | Media        | Gobierno / Procesos     | Dashboards e indicadores de seguimiento                         |
+| Baja capacidad de adaptación ante imprevistos      | Falta de reglas automáticas y flexibilidad             | Mayor esfuerzo operativo                  | Alta         | Procesos / Aplicaciones | Automatización y parametrización flexible                       |
+| Riesgo de errores en asignación de estudiantes PAT | Cruces manuales de disponibilidad                      | Asignaciones incorrectas                  | Alta         | Procesos / Datos        | Validaciones automáticas y lógica de asignación                 |
+| Configuración incorrecta de formularios TO-BE      | Formularios sin validaciones adecuadas                 | Persistencia de errores                   | Media        | Datos / Aplicaciones    | Diseño estandarizado y pruebas de validación                    |
+| Permisos mal definidos en repositorio              | Exceso de privilegios de usuarios                      | Modificación no autorizada                | Alta         | Seguridad / Datos       | Gobierno de accesos y segregación de roles                      |
+| Automatizaciones incompletas                       | Flujos sin manejo de excepciones                       | Nuevos reprocesos                         | Media        | Aplicaciones / Procesos | Pruebas funcionales y manejo de excepciones                     |
+| Mala parametrización inicial                       | Estructura de datos mal definida                       | Inconsistencias operativas                | Alta         | Datos / Gobierno        | Definición inicial de catálogo y reglas de negocio              |
+| Baja adopción por parte de usuarios                | Uso paralelo de correos y archivos                     | Duplicidad y baja efectividad             | Media        | Negocio / Procesos      | Capacitación y lineamientos institucionales                     |
+| Falta de gobierno sobre cambios futuros            | No definir responsables de administración              | Pérdida de sostenibilidad                 | Media        | Gobierno / Aplicaciones | Definición de responsables y políticas de administración        |
+
 ---
 
