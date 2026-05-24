@@ -317,4 +317,163 @@ Con esto, se busca reducir los riesgos asociados a mala parametrización o falta
 | Falta de gobierno sobre cambios futuros            | No definir responsables de administración              | Pérdida de sostenibilidad                 | Media        | Gobierno / Aplicaciones | Definición de responsables y políticas de administración        |
 
 ---
+## 8. Integración de Vistas Arquitectónicas
 
+Como parte del análisis de Arquitectura Empresarial del proceso de logística de aplicación de la Encuesta de Autoevaluación Institucional y por Programas de la Universidad de La Sabana, se realizó la integración de las principales vistas arquitectónicas desarrolladas durante el proyecto: negocio, información, aplicaciones, infraestructura y seguridad.
+
+El objetivo de esta integración fue consolidar en una sola visión los entregables construidos durante el semestre, identificar cómo se relacionan entre sí y evidenciar de manera estructurada las brechas del estado actual (AS-IS) y la lógica que sustenta la propuesta de mejora (TO-BE).
+
+### 8.1 Vista de negocio
+
+El análisis de negocio tomó como base el modelado BPMN desarrollado en el proyecto y permitió identificar cuatro etapas principales dentro del proceso:
+
+| Proceso                    | Descripción                                                                            | Actor responsable                                |
+| -------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Recolección de información | Citación al director, reunión de coordinación y diligenciamiento del formato académico | Coordinadora de Encuestas / Director de Programa |
+| Planeación logística       | Organización de horarios, salones y asignación de estudiantes PAT                      | Coordinadora de Encuestas                        |
+| Aplicación de la encuesta  | Ejecución presencial mediante código QR en aula                                        | Estudiantes PAT                                  |
+| Entrega de resultados      | Procesamiento de información y generación de informes finales                          | Proveedor externo / Área de Autoevaluación       |
+
+A partir de esta vista se identificó como hallazgo principal una alta dependencia operativa en una sola persona, ya que la coordinadora concentra la mayor parte de la gestión inicial y de la consolidación de información. Esto convierte su rol en un punto crítico dentro del proceso y genera un cuello de botella operativo que afecta tiempos y capacidad de respuesta.
+
+### Vista de información
+
+La vista de información se construyó a partir del modelo ERD y permitió estructurar los principales datos que intervienen en el proceso:
+
+| Entidad    | Atributos clave                  | Problema identificado                     |
+| ---------- | -------------------------------- | ----------------------------------------- |
+| Programa   | Facultad, director, nombre       | Formatos diferentes según cada programa   |
+| Docente    | Identificación, nombre, programa | Asociación múltiple sin estructura formal |
+| Asignatura | Horario, salón, semestre         | Datos dispersos en varios archivos        |
+| Cronograma | Fechas y bloques de aplicación   | Construcción manual                       |
+| PAT        | Disponibilidad y asignaciones    | Cruce manual con riesgo de error          |
+
+Dentro del modelo, la entidad Asignatura funciona como punto central porque conecta docentes, programas, horarios y logística de aplicación.
+
+Actualmente esta información no está centralizada ni estructurada dentro de una plataforma institucional, sino distribuida entre archivos Excel y correos electrónicos, lo que explica gran parte de los reprocesos e inconsistencias detectadas.
+
+### 8.3 Vista de aplicaciones
+
+Desde la perspectiva de aplicaciones se identificaron las herramientas actualmente utilizadas y la propuesta futura planteada:
+
+**Estado Actual**
+
+| Herramienta      | Uso actual                 | Limitación                             |
+| ---------------- | -------------------------- | -------------------------------------- |
+| Outlook          | Citaciones y recordatorios | Baja trazabilidad                      |
+| Excel / OneDrive | Consolidación y planeación | Dependencia manual y riesgo de errores |
+
+**Estado Propuesto**
+
+| Herramienta              | Uso propuesto                     | Beneficio                            |
+| ------------------------ | --------------------------------- | ------------------------------------ |
+| Microsoft Forms          | Recolección estructurada de datos | Uniformidad y validación             |
+| Microsoft Power Automate | Automatización del flujo          | Reduce carga manual                  |
+| Microsoft SharePoint     | Repositorio centralizado          | Mayor control y trazabilidad         |
+| Excel Online             | Planeación logística              | Continuidad con herramienta conocida |
+
+
+La principal decisión arquitectónica fue aprovechar el ecosistema Microsoft 365 ya disponible en la universidad, evitando costos adicionales y facilitando una transición progresiva.
+
+### 8.4 Vista de infraestructura
+
+El análisis técnico permitió confirmar que la infraestructura institucional actual cuenta con recursos suficientes para soportar la propuesta:
+
+| Componente              | Estado actual | Rol esperado                 |
+| ----------------------- | ------------- | ---------------------------- |
+| Correo institucional    | Activo        | Comunicación y autenticación |
+| Licencias Microsoft 365 | Activas       | Plataforma principal         |
+| SharePoint / OneDrive   | Disponible    | Repositorio central          |
+| Proveedor externo       | Vigente       | Procesamiento e informes     |
+
+Esto permitió concluir que el problema actual no está relacionado con falta de tecnología, sino con la ausencia de una estructura organizada de uso sobre herramientas ya existentes.
+
+### 8.5 Vista de seguridad
+
+El análisis STRIDE y de cumplimiento normativo permitió conectar seguridad con operación:
+
+| Categoría              | Riesgo principal          | Control propuesto              |
+| ---------------------- | ------------------------- | ------------------------------ |
+| Spoofing               | Suplantación por correo   | Cuenta institucional + MFA     |
+| Tampering              | Cambios en archivos       | Versionado y permisos          |
+| Repudiation            | Falta de evidencia        | Logs automáticos               |
+| Information Disclosure | Exposición de datos       | Acceso segmentado              |
+| Denial of Service      | Saturación de formularios | Restricción por usuario        |
+| Elevation of Privilege | Acceso indebido           | Principio de mínimo privilegio |
+
+
+Adicionalmente, el análisis de la Ley 1581 de Protección de Datos Personales evidenció necesidad de fortalecer:
+
+- control de acceso a información personal,
+- gestión de permisos por rol,
+- trazabilidad del tratamiento de datos,
+- formalización de acuerdos con el proveedor externo.
+
+### 8.6 Articulación entre vistas
+
+La integración permitió identificar que cada vista depende directamente de las demás:
+
+| Relación                       | Articulación identificada                             |
+| ------------------------------ | ----------------------------------------------------- |
+| Negocio → Información          | El proceso define qué datos se necesitan              |
+| Información → Aplicaciones     | Los datos determinan formularios y repositorios       |
+| Aplicaciones → Infraestructura | Las herramientas dependen de recursos existentes      |
+| Infraestructura → Seguridad    | Los controles se implementan sobre los sistemas       |
+| Seguridad → Negocio            | Los controles fortalecen confiabilidad y trazabilidad |
+
+### Flujo integrado del proceso
+
+NEGOCIO
+Coordinadora inicia el proceso y solicita información
+
+↓
+
+INFORMACIÓN
+Programa + Docente + Asignatura + Horario + Salón
+
+↓
+
+APLICACIONES
+AS-IS: Outlook + Excel
+TO-BE: Forms + Power Automate + SharePoint
+
+↓
+
+INFRAESTRUCTURA
+Microsoft 365 institucional
+
+↓
+
+SEGURIDAD
+Autenticación + permisos + auditoría + cumplimiento Ley 1581
+
+### 8.7 Decisiones arquitectónicas clave
+
+Durante el análisis se tomaron tres decisiones principales:
+
+1. Aprovechar la infraestructura existente: Se priorizó el uso de herramientas ya disponibles dentro de la universidad para garantizar viabilidad económica y facilitar adopción.
+2. Estandarizar desde el origen: La información debe llegar estructurada desde el inicio para evitar errores posteriores.
+3. Distribuir responsabilidades: La automatización permite que la coordinadora pase de ejecutar tareas manuales a supervisar el proceso.
+
+### 8.8 Conclusión
+
+La integración de vistas permitió demostrar que los problemas actuales no son aislados, sino sistémicos.
+
+Las principales fortalezas de la propuesta son:
+
+- coherencia entre capas,
+- viabilidad técnica,
+- reducción de reprocesos,
+- mayor trazabilidad,
+- fortalecimiento de seguridad y control.
+
+También se identificaron retos:
+
+- adopción por parte de directores de programa,
+- necesidad de definir gobernanza del sistema,
+- formalización con proveedor externo,
+- correcta parametrización inicial.
+
+En conjunto, el análisis permitió concluir que la propuesta es técnicamente coherente y viable dentro del contexto institucional de la universidad.
+
+Desde la perspectiva de Arquitectura Empresarial, el principal aprendizaje es que la mejora del proceso no depende únicamente de implementar tecnología, sino de articular adecuadamente procesos, información, aplicaciones, infraestructura y seguridad para apoyar de manera sostenible los objetivos institucionales de autoevaluación y acreditación.
