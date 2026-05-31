@@ -190,7 +190,60 @@ En general, el análisis muestra que los riesgos no vienen solo del hecho de man
 Este entregable fue valioso porque permitió entender de forma más clara dónde están las principales brechas del proceso y qué aspectos deberían fortalecerse. Desde la perspectiva de **Arquitectura Empresarial**, este análisis ayuda a ver que mejorar el proceso no solo implica hacerlo más eficiente, sino también más confiable, más controlado y mejor preparado para responder a las exigencias normativas.
 
 ---
-## 6. Gobernanza
+## 6. Gobierno de Arquitectura – Encuesta de Autoevaluación Institucional
+
+## Principios Arquitectónicos
+
+| Principio | Descripción |
+|---|---|
+| **Información estandarizada desde el inicio** | Todos los datos (materias, horarios, salones, profesores) deben recibirse bajo una estructura común para evitar interpretaciones manuales y errores de consolidación. |
+| **Única fuente de verdad** | La información del proceso debe residir en un solo lugar, consultable y actualizable por todos los involucrados, eliminando versiones dispersas. |
+| **Automatización de tareas repetitivas** | Las actividades de alto volumen y bajo valor (validaciones, cruces de horarios, alertas) deben apoyarse en herramientas del ecosistema institucional para reducir carga operativa. |
+
+---
+
+## Estándares Definidos
+
+### Herramientas
+
+- **Microsoft Forms** – Recolección estandarizada de información académica por parte de los directores de programa.
+- **SharePoint** – Repositorio centralizado para almacenar, versionar y consultar la información consolidada.
+- **Excel + Power Query** – Cruce de disponibilidad de estudiantes PAT con horarios y generación de reportes.
+- **Power Automate** – Automatización de validaciones, alertas por datos incompletos y notificaciones ante cambios.
+
+### Comunicación entre componentes
+
+El modelo es **orientado a eventos**: Power Automate actúa como orquestador y dispara flujos al detectar un nuevo formulario diligenciado o un cambio en SharePoint. No se desarrollan APIs propias; todo se basa en configuración no-code/low-code dentro de Microsoft 365.
+
+### Infraestructura
+
+Nube institucional de Microsoft 365: sin servidores adicionales, con control de acceso por roles (coordinadora, directores de programa, estudiantes PAT) y disponibilidad desde cualquier dispositivo con credenciales institucionales.
+
+---
+
+## Decisiones Arquitectónicas (ADR)
+
+### ADR 1 – Centralizar la información en SharePoint
+
+**Problema:** La información del proceso estaba dispersa en correos, archivos Excel y formatos heterogéneos, lo que dificultaba identificar la versión vigente y hacer seguimiento a cambios.
+
+**Decisión:** Usar SharePoint como repositorio único donde se consolide automáticamente la información proveniente de Microsoft Forms.
+
+**Consecuencias positivas:** mayor trazabilidad, reducción de reprocesos, consulta de datos en tiempo real y trabajo coordinado con estudiantes PAT.
+
+**Consecuencias negativas:** dependencia de la correcta administración de permisos y de la disponibilidad de Microsoft 365; puede requerirse acompañamiento inicial para la adopción.
+
+---
+
+### ADR 2 – Estandarizar la recolección con Microsoft Forms
+
+**Problema:** Cada director de programa entregaba la información en formatos distintos, generando inconsistencias, campos vacíos y trabajo manual adicional para consolidar los datos.
+
+**Decisión:** Implementar un formulario estructurado en Microsoft Forms con campos definidos y validaciones básicas, obligatorio para todos los directores de programa.
+
+**Consecuencias positivas:** mejora en la calidad y consistencia de los datos, reducción de tiempos de revisión y mayor confiabilidad en la planeación logística.
+
+**Consecuencias negativas:** un diseño inadecuado del formulario puede dejar fuera casos excepcionales (como profesores compartidos entre programas) o información no contemplada inicialmente.
 
 ---
 ## 7. Análisis de Riesgos
